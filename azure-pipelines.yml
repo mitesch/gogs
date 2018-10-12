@@ -32,6 +32,10 @@ steps:
     go version
     go get -v -t -d ./...
     go build -v -tags "pam"
-    go test -v -cover -race ./...
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
+  
+- script: |
+    go test -v -cover -race ./...
+  workingDirectory: '$(modulePath)'
+  displayName: 'Run tests'
