@@ -96,10 +96,10 @@ jobs:
 
   steps:
   - script: |
-      mkdir %GOBIN%
-      mkdir %GOPATH%\pkg
-      mkdir %modulePath%
-      move gopath %modulePath%
+      echo mkdir %GOBIN%
+      echo mkdir %GOPATH%\pkg
+      echo mkdir %modulePath%
+      echo move gopath %modulePath%
     displayName: 'Set up the Go workspace'
 
   - script: |
