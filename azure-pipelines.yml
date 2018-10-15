@@ -100,8 +100,6 @@ jobs:
       mkdir %GOPATH%\pkg
       mkdir %modulePath%
       move gopath %modulePath%
-      #echo "##vso[task.prependpath]$(GOBIN)"
-      #echo "##vso[task.prependpath]$(GOROOT)\bin"
     displayName: 'Set up the Go workspace'
 
   - script: |
