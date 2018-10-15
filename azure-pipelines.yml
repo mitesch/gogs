@@ -52,7 +52,7 @@ jobs:
 
   steps:
   - script: |
-    where go
+      where go
   displayName: 'where go'
 
 #  variables:
