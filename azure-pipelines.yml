@@ -96,9 +96,9 @@ jobs:
 
   steps:
   - script: |
-      mkdir -p '$(GOBIN)'
-      mkdir -p '$(GOPATH)\pkg'
-      mkdir -p '$(modulePath)'
+      mkdir '$(GOBIN)'
+      mkdir '$(GOPATH)\pkg'
+      mkdir '$(modulePath)'
       move !(gopath) '$(modulePath)'
       echo '##vso[task.prependpath]$(GOBIN)'
       echo '##vso[task.prependpath]$(GOROOT)\bin'
