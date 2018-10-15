@@ -58,7 +58,7 @@ jobs:
 
   steps:
   - script: |
-      where go
+      which go
       mkdir -p '$(GOBIN)'
       mkdir -p '$(GOPATH)/pkg'
       mkdir -p '$(modulePath)'
