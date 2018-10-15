@@ -52,7 +52,7 @@ jobs:
 
   variables:
     GOBIN:  '$(GOPATH)/bin' # Go binaries path
-    GOROOT: '/usr/local/bin/go' # Go installation path
+    GOROOT: '/usr/local/go1.11' # Go installation path
     GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
     modulePath: '$(GOPATH)/src/github.com/gogs/gogs' # Path to the module's code
 
@@ -81,5 +81,41 @@ jobs:
 
   - script: |
       go test -v -cover -race ./...
+    workingDirectory: '$(modulePath)'
+    displayName: 'Run tests'
+
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  variables:
+    GOBIN:  '$(GOPATH)\bin' # Go binaries path
+    GOROOT: 'C:\go1.11' # Go installation path
+    GOPATH: '$(system.defaultWorkingDirectory)\gopath' # Go workspace path
+    modulePath: '$(GOPATH)\src\github.com\gogs\gogs' # Path to the module's code
+
+  steps:
+  - script: |
+      mkdir -p '$(GOBIN)'
+      mkdir -p '$(GOPATH)\pkg'
+      mkdir -p '$(modulePath)'
+      move !(gopath) '$(modulePath)'
+      echo '##vso[task.prependpath]$(GOBIN)'
+      echo '##vso[task.prependpath]$(GOROOT)\bin'
+    displayName: 'Set up the Go workspace'
+
+  - script: |
+      go version
+      go get -v -t -d .\...
+    workingDirectory: '$(modulePath)'
+    displayName: 'Get dependencies'
+
+  - script: |
+      go build -v -tags "pam"
+    workingDirectory: '$(modulePath)'
+    displayName: 'Build'
+
+  - script: |
+      go test -v -cover -race .\...
     workingDirectory: '$(modulePath)'
     displayName: 'Run tests'
